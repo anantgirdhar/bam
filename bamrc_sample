@@ -1,0 +1,31 @@
+## SOURCES
+# List each source starting with the word 'source'. Then list an alias for the
+# source and the path to the source. The alias is used later in the profile.
+# Then list any subpaths that should be ignored one per line preceeded by an
+# 'i'. These should be in the rsync exclude format.
+# Also list each path that should be collapsed. These are synced but the output
+# log only shows them as one entry to help with readability. These are
+# especially useful for system folders that contain a lot of files.
+# List one path per line preceeded by a 'c'.
+# Regular shell type wildcards allowed. Should contain at least one wildcard
+# (otherwise, what are you trying to collapse).
+
+source SOURCEDRIVE /path/to/source/drive/
+i /lost+found
+i .local/lib
+i .local/bin
+i .cache
+i __pycache__
+c .config/*
+c .local/share/*
+c */.git/*
+
+## PROFILES
+# A profile is identified by the destination root to which the source files are
+# being mirrored. Each profile contains a mapping from the source folders to
+# destination folders within the destination root.
+# Specify one mapping per line preceeded by a plus sign.
+# Each destination folder should be relative to the destination root.
+
+[/path/to/dest/drive]
++ SOURCEDRIVE => destination_for_source/
