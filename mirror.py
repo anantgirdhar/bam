@@ -127,7 +127,6 @@ def clean_output(output, collapse_patterns):
             output[0].startswith('Number of files')
             ):
         line = output.pop(0)
-        print(line)
         if line == 'sending incremental file list':
             continue
         line = line[len('*deleting   '):]  # remove the rsync chars up front
@@ -175,8 +174,6 @@ def run(SOURCES, PROFILES, dryrun=True):
             print(rsync_cmd)
             cmd_out = os.popen(rsync_cmd).read()
             # Clean and append the outputs
-            print(cmd_out.splitlines())
-            print(cmd_out.splitlines()[0])
             changes, deletions, stats = clean_output(cmd_out.splitlines(), SOURCES[source]['collapse'])
             outputs['changes'].extend(changes)
             outputs['deletions'].extend(deletions)
