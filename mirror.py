@@ -123,6 +123,7 @@ def clean_output(output, collapse_patterns):
     # Extract the changes (until we get to deletions)
     while not (
             output[0].startswith('*deleting   ') or
+            output[0].startswith('cannot delete ') or
             output[0] == '' or
             output[0].startswith('Number of files')
             ):
@@ -137,7 +138,8 @@ def clean_output(output, collapse_patterns):
             output[0].startswith('Number of files')
             ):
         line = output.pop(0)
-        line = line[len('*deleting   '):]
+        if line.startswith('*deleting  '):
+            line = line[len('*deleting   '):]
         deletions.append(line)
     stats = output[:]
     # Collapse the lists
